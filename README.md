@@ -1,23 +1,14 @@
-<div align="center">
-    <img width="120px" height="auto" src="https://raw.githubusercontent.com/jamesgober/jamesgober/main/media/icons/hexagon-3.svg" alt="Triple Hexagon">
-    <h1>
-        <strong>dotnet-cache-kit</strong>
-        <sup><br><sub>CACHING ABSTRACTION</sub></sup>
-    </h1>
-    <div>
-        <a href="https://www.nuget.org/packages/dotnet-cache-kit"><img alt="NuGet" src="https://img.shields.io/nuget/v/dotnet-cache-kit"></a>
-        <span>&nbsp;</span>
-        <a href="https://www.nuget.org/packages/dotnet-cache-kit"><img alt="NuGet Downloads" src="https://img.shields.io/nuget/dt/dotnet-cache-kit?color=%230099ff"></a>
-        <span>&nbsp;</span>
-        <a href="./LICENSE" title="License"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue.svg"></a>
-        <span>&nbsp;</span>
-        <a href="https://github.com/jamesgober/dotnet-cache-kit/actions"><img alt="GitHub CI" src="https://github.com/jamesgober/dotnet-cache-kit/actions/workflows/ci.yml/badge.svg"></a>
-    </div>
-</div>
-<br>
-<p>
-    In-memory and distributed caching abstraction for .NET. Unified API across memory and Redis backends, with stampede protection, TTL policies, cache-aside pattern, and stale-while-revalidate support — designed for high-throughput services where cache misses are expensive.
-</p>
+# dotnet-cache-kit
+
+[![NuGet](https://img.shields.io/nuget/v/JG.CacheKit?logo=nuget)](https://www.nuget.org/packages/JG.CacheKit)
+[![Downloads](https://img.shields.io/nuget/dt/JG.CacheKit?color=%230099ff&logo=nuget)](https://www.nuget.org/packages/JG.CacheKit)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](./LICENSE)
+[![CI](https://github.com/jamesgober/dotnet-cache-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/jamesgober/dotnet-cache-kit/actions)
+
+---
+
+In-memory and distributed caching abstraction for .NET. Unified API across memory and Redis backends, with stampede protection, TTL policies, cache-aside pattern, and stale-while-revalidate support — designed for high-throughput services where cache misses are expensive.
+
 
 ## Features
 
@@ -31,15 +22,11 @@
 - **Metrics** — Hit/miss counters, eviction tracking, and cache size reporting
 - **Single Registration** — `services.AddCacheKit()`
 
-<br>
-
 ## Installation
 
 ```bash
-dotnet add package dotnet-cache-kit
+dotnet add package JG.CacheKit
 ```
-
-<br>
 
 ## Quick Start
 
@@ -62,43 +49,18 @@ public class ProductService(ICacheKit cache)
 }
 ```
 
-<br>
-
 ## Documentation
 
 - **[API Reference](./docs/API.md)** — Full API documentation and examples
 
-<br>
-
 ## Contributing
 
-Contributions welcome. Please:
-1. Ensure all tests pass before submitting
-2. Follow existing code style and patterns
-3. Update documentation as needed
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-<br>
+## License
 
-## Testing
+Licensed under the Apache License 2.0. See [LICENSE](./LICENSE) for details.
 
-```bash
-dotnet test
-```
+---
 
-<br>
-<hr>
-<br>
-
-<div id="license">
-    <h2>⚖️ License</h2>
-    <p>Licensed under the <b>Apache License</b>, version 2.0 (the <b>"License"</b>); you may not use this software, including, but not limited to the source code, media files, ideas, techniques, or any other associated property or concept belonging to, associated with, or otherwise packaged with this software except in compliance with the <b>License</b>.</p>
-    <p>You may obtain a copy of the <b>License</b> at: <a href="http://www.apache.org/licenses/LICENSE-2.0" title="Apache-2.0 License" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a>.</p>
-    <p>Unless required by applicable law or agreed to in writing, software distributed under the <b>License</b> is distributed on an "<b>AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND</b>, either express or implied.</p>
-    <p>See the <a href="./LICENSE" title="Software License file">LICENSE</a> file included with this project for the specific language governing permissions and limitations under the <b>License</b>.</p>
-    <br>
-</div>
-
-<div align="center">
-    <h2></h2>
-    <sup>COPYRIGHT <small>&copy;</small> 2025 <strong>JAMES GOBER.</strong></sup>
-</div>
+**Ready to get started?** Install via NuGet and check out the [API reference](./docs/API.md).
