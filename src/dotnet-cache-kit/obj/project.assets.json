@@ -372,7 +372,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "0.1.0",
+    "version": "1.0.0",
     "restore": {
       "projectUniqueName": "C:\\Dev\\libs\\dotnet\\dotnet-cache-kit\\src\\dotnet-cache-kit\\dotnet-cache-kit.csproj",
       "projectName": "JG.CacheKit",

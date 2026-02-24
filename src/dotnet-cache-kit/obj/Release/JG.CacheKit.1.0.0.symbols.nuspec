@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>JG.CacheKit</id>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <authors>James Gober</authors>
     <license type="expression">Apache-2.0</license>
     <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
@@ -21,8 +21,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Release\net8.0\dotnet-cache-kit.dll" target="lib\net8.0\dotnet-cache-kit.dll" />
-    <file src="C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Release\net8.0\dotnet-cache-kit.xml" target="lib\net8.0\dotnet-cache-kit.xml" />
-    <file src="C:\Dev\libs\dotnet\dotnet-cache-kit\README.md" target="\README.md" />
+    <file src="C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Release\net8.0\dotnet-cache-kit.pdb" target="lib\net8.0\dotnet-cache-kit.pdb" />
   </files>
 </package>

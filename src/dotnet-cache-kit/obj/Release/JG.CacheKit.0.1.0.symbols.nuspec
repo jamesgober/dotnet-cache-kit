@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/jamesgober/dotnet-cache-kit</projectUrl>
     <description>In-memory and distributed caching for .NET with stampede protection.</description>
     <tags>caching cache redis in-memory stampede-protection dotnet</tags>
-    <repository type="git" url="https://github.com/jamesgober/dotnet-cache-kit" branch="refs/heads/main" commit="246cd61503caf14de713d7cb574363096a9143cd" />
+    <repository type="git" url="https://github.com/jamesgober/dotnet-cache-kit" branch="refs/heads/main" commit="8d53e4aee35bcd5e56fadea8c9e5e2c336e77c6a" />
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="Microsoft.Extensions.Caching.Abstractions" version="8.0.0" exclude="Build,Analyzers" />
