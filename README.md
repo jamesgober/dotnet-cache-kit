@@ -12,7 +12,7 @@ In-memory and distributed caching abstraction for .NET. Unified API across memor
 
 ## Features
 
-- **Unified API** — Same interface for in-memory and Redis; swap backends without code changes
+- **Unified API** — Same interface for in-memory and distributed backends; swap providers without code changes
 - **Stampede Protection** — Lock-based cache population prevents thundering herd on cold keys
 - **Stale-While-Revalidate** — Serve stale data while refreshing in the background; never block on cache miss
 - **TTL Policies** — Absolute and sliding expiration with per-key and per-category defaults
@@ -34,7 +34,7 @@ dotnet add package JG.CacheKit
 builder.Services.AddCacheKit(options =>
 {
     options.UseMemory();                    // In-memory for dev
-    // options.UseRedis("localhost:6379"); // Redis for production
+    // options.UseDistributed();           // Use with any registered IDistributedCache
     options.DefaultTtl = TimeSpan.FromMinutes(5);
     options.EnableStampedeProtection = true;
 });
@@ -42,10 +42,11 @@ builder.Services.AddCacheKit(options =>
 // Usage
 public class ProductService(ICacheKit cache)
 {
-    public async Task<Product> GetProduct(string id) =>
-        await cache.GetOrSetAsync($"product:{id}",
-            () => _db.Products.FindAsync(id),
-            ttl: TimeSpan.FromMinutes(10));
+    public async Task<Product> GetProductAsync(string id) =>
+        await cache.GetOrSetAsync(
+            $"product:{id}",
+            async ct => await LoadProductAsync(id, ct),
+            new CacheEntryOptions { Ttl = TimeSpan.FromMinutes(10) });
 }
 ```
 

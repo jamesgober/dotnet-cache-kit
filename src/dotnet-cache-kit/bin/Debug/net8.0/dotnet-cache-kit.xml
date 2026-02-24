@@ -1,0 +1,598 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dotnet-cache-kit</name>
+    </assembly>
+    <members>
+        <member name="T:JG.CacheKit.Abstractions.CacheEntryMetadata">
+            <summary>
+            Metadata describing cache entry lifetime and expiration behavior.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntryMetadata.#ctor(System.Int64,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Abstractions.CacheEntryMetadata"/> struct.
+            </summary>
+            <param name="createdUtcTicks">The UTC creation time in ticks.</param>
+            <param name="absoluteExpirationUtcTicks">The absolute expiration UTC time in ticks, or 0 when not set.</param>
+            <param name="slidingExpirationTicks">The sliding expiration duration in ticks, or 0 when not set.</param>
+            <param name="staleTtlTicks">The stale window duration in ticks, or 0 when not set.</param>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntryMetadata.CreatedUtcTicks">
+            <summary>
+            Gets the UTC creation time in ticks.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntryMetadata.AbsoluteExpirationUtcTicks">
+            <summary>
+            Gets the absolute expiration UTC time in ticks. Returns 0 when not set.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntryMetadata.SlidingExpirationTicks">
+            <summary>
+            Gets the sliding expiration duration in ticks. Returns 0 when not set.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntryMetadata.StaleTtlTicks">
+            <summary>
+            Gets the stale window duration in ticks. Returns 0 when not set.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntryMetadata.StaleExpirationUtcTicks">
+            <summary>
+            Gets the UTC stale expiration time in ticks. Returns 0 when not set.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntryMetadata.IsExpired(System.Int64)">
+            <summary>
+            Returns <c>true</c> if the entry is expired and outside its stale window.
+            </summary>
+            <param name="nowUtcTicks">The current UTC time in ticks.</param>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntryMetadata.IsStale(System.Int64)">
+            <summary>
+            Returns <c>true</c> if the entry is stale but still within its stale window.
+            </summary>
+            <param name="nowUtcTicks">The current UTC time in ticks.</param>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntryMetadata.RefreshSliding(System.Int64)">
+            <summary>
+            Returns a copy of the metadata with refreshed sliding expiration.
+            </summary>
+            <param name="nowUtcTicks">The current UTC time in ticks.</param>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.CacheEntry">
+            <summary>
+            Represents a cached value and its lifetime metadata.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntry.#ctor(System.Object,JG.CacheKit.Abstractions.CacheEntryMetadata)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Abstractions.CacheEntry"/> class with an in-memory value.
+            </summary>
+            <param name="value">The cached value.</param>
+            <param name="metadata">The metadata describing expiration behavior.</param>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheEntry.#ctor(System.ReadOnlyMemory{System.Byte},JG.CacheKit.Abstractions.CacheEntryMetadata)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Abstractions.CacheEntry"/> class with a serialized payload.
+            </summary>
+            <param name="payload">The serialized payload.</param>
+            <param name="metadata">The metadata describing expiration behavior.</param>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntry.Value">
+            <summary>
+            Gets the cached value when using object storage.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntry.Payload">
+            <summary>
+            Gets the serialized payload when using binary storage.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheEntry.Metadata">
+            <summary>
+            Gets the metadata describing expiration behavior.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.CacheEntryState">
+            <summary>
+            Represents the state of a cache lookup.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheEntryState.Miss">
+            <summary>
+            The entry was not found.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheEntryState.Hit">
+            <summary>
+            The entry was found and is fresh.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheEntryState.Stale">
+            <summary>
+            The entry was found but is stale and still within its stale window.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheEntryState.Expired">
+            <summary>
+            The entry was found but expired and removed.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.CacheGetResult">
+            <summary>
+            Represents the result of a cache lookup.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheGetResult.#ctor(JG.CacheKit.Abstractions.CacheEntryState,JG.CacheKit.Abstractions.CacheEntry)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Abstractions.CacheGetResult"/> struct.
+            </summary>
+            <param name="state">The cache entry state.</param>
+            <param name="entry">The cache entry when present.</param>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheGetResult.State">
+            <summary>
+            Gets the cache entry state.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheGetResult.Entry">
+            <summary>
+            Gets the cache entry when present.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.CacheValueMode">
+            <summary>
+            Describes how cached values are represented by a cache provider.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheValueMode.InMemory">
+            <summary>
+            Values are stored as in-memory objects.
+            </summary>
+        </member>
+        <member name="F:JG.CacheKit.Abstractions.CacheValueMode.Binary">
+            <summary>
+            Values are stored as serialized binary payloads.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.ICacheKit">
+            <summary>
+            Provides a unified cache API across memory and distributed providers.
+            </summary>
+            <remarks>Implementations are expected to be thread-safe for concurrent use.</remarks>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.ICacheKit.Metrics">
+            <summary>
+            Gets cache metrics for the current instance.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.GetAsync``1(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a cached value by key.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The cached value, or <c>default</c> if the key was not found or expired.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="key"/> is null or whitespace.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.ExistsAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Checks whether a cached value exists for the specified key.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><c>true</c> if the key exists and has not expired; otherwise, <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="key"/> is null or whitespace.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.SetAsync``1(System.String,``0,JG.CacheKit.Policies.CacheEntryOptions,System.Threading.CancellationToken)">
+            <summary>
+            Sets a cache value by key.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The value to cache.</param>
+            <param name="options">The cache entry options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="key"/> is null or whitespace.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when TTL, sliding expiration, or stale TTL is not greater than zero.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when both TTL and sliding expiration are specified.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.GetOrSetAsync``1(System.String,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.ValueTask{``0}},JG.CacheKit.Policies.CacheEntryOptions,System.Threading.CancellationToken)">
+            <summary>
+            Gets a cached value or uses the factory to populate it.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="factory">The value factory.</param>
+            <param name="options">The cache entry options.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The cached or newly computed value.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="key"/> is null or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes a cached value by key.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="key"/> is null or whitespace.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.InvalidateTagAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Invalidates all cache entries associated with a tag.
+            </summary>
+            <param name="tag">The tag to invalidate.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="tag"/> is null or whitespace.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheKit.InvalidateTagsAsync(System.Collections.Generic.IReadOnlyCollection{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Invalidates all cache entries associated with the provided tags.
+            </summary>
+            <param name="tags">The tags to invalidate.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="tags"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when any tag is null or whitespace.</exception>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.ICacheMetrics">
+            <summary>
+            Represents cache metrics for instrumentation.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.ICacheMetrics.Snapshot">
+            <summary>
+            Gets a snapshot of current metrics.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.CacheMetricsSnapshot">
+            <summary>
+            Represents a point-in-time snapshot of cache metrics.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.CacheMetricsSnapshot.#ctor(System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Abstractions.CacheMetricsSnapshot"/> struct.
+            </summary>
+            <param name="hits">The number of cache hits.</param>
+            <param name="misses">The number of cache misses.</param>
+            <param name="staleHits">The number of stale hits served.</param>
+            <param name="sets">The number of set operations.</param>
+            <param name="removals">The number of removal operations.</param>
+            <param name="evictions">The number of evictions due to expiration.</param>
+            <param name="size">The current number of tracked entries.</param>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Hits">
+            <summary>
+            Gets the number of cache hits.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Misses">
+            <summary>
+            Gets the number of cache misses.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.StaleHits">
+            <summary>
+            Gets the number of stale hits returned.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Sets">
+            <summary>
+            Gets the number of cache set operations.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Removals">
+            <summary>
+            Gets the number of cache removal operations.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Evictions">
+            <summary>
+            Gets the number of evictions due to expiration.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.CacheMetricsSnapshot.Size">
+            <summary>
+            Gets the current cache size tracked by this instance.
+            </summary>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.ICacheProvider">
+            <summary>
+            Represents a cache provider implementation.
+            </summary>
+            <remarks>Implementations should be thread-safe for use as a singleton.</remarks>
+        </member>
+        <member name="P:JG.CacheKit.Abstractions.ICacheProvider.ValueMode">
+            <summary>
+            Gets the value representation used by this provider.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheProvider.GetAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Gets a cache entry by key.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The lookup result containing the entry state and value if found.</returns>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheProvider.SetAsync(System.String,JG.CacheKit.Abstractions.CacheEntry,System.Threading.CancellationToken)">
+            <summary>
+            Stores a cache entry by key.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="entry">The cache entry.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheProvider.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes a cache entry by key.
+            </summary>
+            <param name="key">The cache key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+        </member>
+        <member name="T:JG.CacheKit.Abstractions.ICacheSerializer">
+            <summary>
+            Represents a serializer used to encode cache values.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheSerializer.Serialize``1(``0)">
+            <summary>
+            Serializes a value into a byte array.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="value">The value to serialize.</param>
+            <returns>A UTF-8 encoded byte array representing the serialized value.</returns>
+        </member>
+        <member name="M:JG.CacheKit.Abstractions.ICacheSerializer.Deserialize``1(System.ReadOnlyMemory{System.Byte})">
+            <summary>
+            Deserializes a value from a byte payload.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="payload">The serialized payload.</param>
+            <returns>The deserialized value, or <c>default</c> if the payload represents a null value.</returns>
+        </member>
+        <member name="T:JG.CacheKit.CacheKit">
+            <summary>
+            Provides a unified cache API across memory and distributed providers.
+            </summary>
+            <remarks>This type is thread-safe and intended for use as a singleton.</remarks>
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.#ctor(JG.CacheKit.Abstractions.ICacheProvider,JG.CacheKit.Abstractions.ICacheSerializer,Microsoft.Extensions.Options.IOptions{JG.CacheKit.Policies.CacheKitOptions},JG.CacheKit.Internal.CacheMetrics,JG.CacheKit.Tagging.ICacheTagIndex,System.TimeProvider,Microsoft.Extensions.Logging.ILogger{JG.CacheKit.CacheKit})">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.CacheKit"/> class.
+            </summary>
+            <param name="provider">The cache provider.</param>
+            <param name="serializer">The serializer.</param>
+            <param name="options">The cache options.</param>
+            <param name="metrics">The cache metrics.</param>
+            <param name="tagIndex">The tag index.</param>
+            <param name="timeProvider">The time provider.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="P:JG.CacheKit.CacheKit.Metrics">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.GetAsync``1(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.ExistsAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.SetAsync``1(System.String,``0,JG.CacheKit.Policies.CacheEntryOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.GetOrSetAsync``1(System.String,System.Func{System.Threading.CancellationToken,System.Threading.Tasks.ValueTask{``0}},JG.CacheKit.Policies.CacheEntryOptions,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.InvalidateTagAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.CacheKit.InvalidateTagsAsync(System.Collections.Generic.IReadOnlyCollection{System.String},System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:JG.CacheKit.Extensions.ServiceCollectionExtensions">
+            <summary>
+            Provides dependency injection registration for CacheKit.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Extensions.ServiceCollectionExtensions.AddCacheKit(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{JG.CacheKit.Policies.CacheKitOptions})">
+            <summary>
+            Adds CacheKit to the service collection.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configure">The configuration action.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="services"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:JG.CacheKit.Policies.CacheEntryOptions">
+            <summary>
+            Provides cache entry configuration for a specific operation.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheEntryOptions.Ttl">
+            <summary>
+            Gets or sets the absolute time-to-live for the entry.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheEntryOptions.SlidingExpiration">
+            <summary>
+            Gets or sets the sliding expiration duration for the entry.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheEntryOptions.StaleTtl">
+            <summary>
+            Gets or sets the stale window duration for stale-while-revalidate.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheEntryOptions.Tags">
+            <summary>
+            Gets or sets the tags associated with the entry.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheEntryOptions.Category">
+            <summary>
+            Gets or sets the category for resolving per-category default options.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheEntryOptions.Validate">
+            <summary>
+            Validates the options and throws if invalid.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when TTL, sliding expiration, or stale TTL is not greater than zero.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when both TTL and sliding expiration are specified, or when a tag is null or whitespace.</exception>
+        </member>
+        <member name="T:JG.CacheKit.Policies.CacheKitOptions">
+            <summary>
+            Configures cache kit defaults and provider selection.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.DefaultTtl">
+            <summary>
+            Gets or sets the default absolute TTL for cache entries.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.DefaultSlidingExpiration">
+            <summary>
+            Gets or sets the default sliding expiration duration.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.DefaultStaleTtl">
+            <summary>
+            Gets or sets the default stale window duration.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.EnableStaleWhileRevalidate">
+            <summary>
+            Gets or sets a value indicating whether stale-while-revalidate is enabled.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.EnableStampedeProtection">
+            <summary>
+            Gets or sets a value indicating whether stampede protection is enabled.
+            </summary>
+        </member>
+        <member name="P:JG.CacheKit.Policies.CacheKitOptions.TimeProvider">
+            <summary>
+            Gets or sets the time provider used for expiration checks.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.UseMemory">
+            <summary>
+            Configures the cache to use the in-memory provider.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.UseDistributed">
+            <summary>
+            Configures the cache to use a distributed provider via <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.
+            </summary>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.AddCategoryDefaults(System.String,JG.CacheKit.Policies.CacheEntryOptions)">
+            <summary>
+            Registers default cache entry options for a category. When <see cref="P:JG.CacheKit.Policies.CacheEntryOptions.Category"/>
+            is set on an operation, the matching defaults are used for any unset properties.
+            </summary>
+            <param name="category">The category name.</param>
+            <param name="defaults">The default options for the category.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="category"/> is null or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="defaults"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.UseProvider(System.Func{System.IServiceProvider,JG.CacheKit.Abstractions.ICacheProvider})">
+            <summary>
+            Configures the cache to use a custom provider.
+            </summary>
+            <param name="providerFactory">The provider factory.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="providerFactory"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.UseSerializer(JG.CacheKit.Abstractions.ICacheSerializer)">
+            <summary>
+            Configures a custom serializer.
+            </summary>
+            <param name="serializer">The serializer instance.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="serializer"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Policies.CacheKitOptions.UseSerializer(System.Func{System.IServiceProvider,JG.CacheKit.Abstractions.ICacheSerializer})">
+            <summary>
+            Configures a custom serializer factory.
+            </summary>
+            <param name="serializerFactory">The serializer factory.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="serializerFactory"/> is <c>null</c>.</exception>
+        </member>
+        <member name="T:JG.CacheKit.Providers.DistributedCacheProvider">
+            <summary>
+            Provides a distributed cache provider backed by <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.
+            </summary>
+            <remarks>This type is thread-safe. Thread safety of individual operations depends on the underlying <see cref="T:Microsoft.Extensions.Caching.Distributed.IDistributedCache"/>.</remarks>
+        </member>
+        <member name="M:JG.CacheKit.Providers.DistributedCacheProvider.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,System.TimeProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Providers.DistributedCacheProvider"/> class.
+            </summary>
+            <param name="distributedCache">The distributed cache.</param>
+            <param name="timeProvider">The time provider.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="distributedCache"/> or <paramref name="timeProvider"/> is <c>null</c>.</exception>
+        </member>
+        <member name="P:JG.CacheKit.Providers.DistributedCacheProvider.ValueMode">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.Providers.DistributedCacheProvider.GetAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.Providers.DistributedCacheProvider.SetAsync(System.String,JG.CacheKit.Abstractions.CacheEntry,System.Threading.CancellationToken)">
+            <inheritdoc />
+            <exception cref="T:System.ArgumentException">Thrown when the entry contains an empty payload.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Providers.DistributedCacheProvider.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:JG.CacheKit.Providers.MemoryCacheProvider">
+            <summary>
+            Provides an in-memory cache provider.
+            </summary>
+            <remarks>This type is thread-safe and intended for use as a singleton.</remarks>
+        </member>
+        <member name="M:JG.CacheKit.Providers.MemoryCacheProvider.#ctor(System.TimeProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Providers.MemoryCacheProvider"/> class.
+            </summary>
+            <param name="timeProvider">The time provider.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="timeProvider"/> is <c>null</c>.</exception>
+        </member>
+        <member name="P:JG.CacheKit.Providers.MemoryCacheProvider.ValueMode">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.Providers.MemoryCacheProvider.GetAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.Providers.MemoryCacheProvider.SetAsync(System.String,JG.CacheKit.Abstractions.CacheEntry,System.Threading.CancellationToken)">
+            <inheritdoc />
+            <exception cref="T:System.ArgumentException">Thrown when the entry contains a non-empty payload.</exception>
+        </member>
+        <member name="M:JG.CacheKit.Providers.MemoryCacheProvider.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="T:JG.CacheKit.Serialization.JsonCacheSerializer">
+            <summary>
+            Provides System.Text.Json based serialization for cache values.
+            </summary>
+            <remarks>This type is thread-safe after construction.</remarks>
+        </member>
+        <member name="M:JG.CacheKit.Serialization.JsonCacheSerializer.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:JG.CacheKit.Serialization.JsonCacheSerializer"/> class.
+            </summary>
+            <param name="options">The JSON serializer options.</param>
+        </member>
+        <member name="M:JG.CacheKit.Serialization.JsonCacheSerializer.Serialize``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:JG.CacheKit.Serialization.JsonCacheSerializer.Deserialize``1(System.ReadOnlyMemory{System.Byte})">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,15 @@
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.csproj.AssemblyReference.cache
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.AssemblyInfoInputs.cache
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.AssemblyInfo.cs
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.csproj.CoreCompileInputs.cache
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.sourcelink.json
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.xml
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Debug\net8.0\dotnet-cache-kit.deps.json
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Debug\net8.0\dotnet-cache-kit.dll
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Debug\net8.0\dotnet-cache-kit.pdb
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\bin\Debug\net8.0\dotnet-cache-kit.xml
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.dll
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\refint\dotnet-cache-kit.dll
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\dotnet-cache-kit.pdb
+C:\Dev\libs\dotnet\dotnet-cache-kit\src\dotnet-cache-kit\obj\Debug\net8.0\ref\dotnet-cache-kit.dll

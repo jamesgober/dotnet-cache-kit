@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/dotnet-cache-kit/dotnet-cache-kit.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/dotnet-cache-kit.Tests/dotnet-cache-kit.Tests.csproj" />
+  </Folder>
+</Solution>
